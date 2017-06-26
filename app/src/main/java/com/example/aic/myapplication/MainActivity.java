@@ -1,10 +1,13 @@
 package com.example.aic.myapplication;
 
 import android.content.DialogInterface;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -210,6 +213,33 @@ public class MainActivity extends AppCompatActivity {
                 if (category.equals("W")) {
                     String item = (String) spinner2.getSelectedItem();
                     setSpinner3Value(spinner3,item);
+                }
+            }
+            public void onNothingSelected(AdapterView parent) {
+            }
+        });
+
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(
+                LAYOUT_INFLATER_SERVICE);
+        final View layout = inflater.inflate(R.layout.alert_dialog,
+                (ViewGroup)findViewById(R.id.dialog_root));
+        final AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle((String) spinner2.getSelectedItem())
+                .setMessage("Input values")
+                .setView(layout)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                final String chara = (String) spinner2.getSelectedItem();
+                if (chara.equals("bbbb")) {
+                    alertDialog.show();
                 }
             }
             public void onNothingSelected(AdapterView parent) {
